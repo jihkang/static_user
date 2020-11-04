@@ -6,7 +6,7 @@
 /*   By: mallang <mallang@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/01 13:07:34 by mallang           #+#    #+#             */
-/*   Updated: 2020/11/01 18:49:51 by mallang          ###   ########.fr       */
+/*   Updated: 2020/11/04 14:09:05 by mallang          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,25 +75,25 @@ char	*ft_strdup(char *str)
 	return (buf);
 }
 
-int		ft_strjoin(char **buffer, char *str, char *str2)
+char	*ft_strjoin(char *str, char *str2)
 {
 	int		len1;
 	int		len2;
 	int		i;
+	char	*buffer;
 
+	if (str2 == NULL && str == NULL)
+		return (NULL);
+	if (str2 == NULL)
+		return (ft_strdup(str));
+	if (str == NULL)
+		return (ft_strdup(str2));
 	i = 0;
 	len1 = ft_strlen(str);
 	len2 = ft_strlen(str2);
-	*buffer = (char *)malloc(sizeof(char) * (len1 + len2 + 1));
-	if (ft_strlcpy(*buffer, str, len1 + 1) == -1)
-		return (-1);
-	if (ft_strlcat(*buffer, str2, len1 + len2 + 1) == -1)
-		return (-1);
-	while (i < len1)
-	{
-		str[i] = 0;
-		i++;
-	}
+	buffer = (char *)malloc(sizeof(char) * (len1 + len2 + 1));
+	ft_strlcpy(buffer, str, len1 + 1);
 	free(str);
-	return (0);
+	ft_strlcat(buffer, str2, len1 + len2 + 1);
+	return (buffer);
 }

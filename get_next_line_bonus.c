@@ -6,7 +6,7 @@
 /*   By: mallang <mallang@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/01 13:03:25 by mallang           #+#    #+#             */
-/*   Updated: 2020/11/01 18:49:38 by mallang          ###   ########.fr       */
+/*   Updated: 2020/11/04 14:09:42 by mallang          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,6 @@ int		get_next_line(int fd, char **line)
 	static char	*buffer[65536];
 	char		buf[BUFFER_SIZE + 1];
 	int			size;
-	char		*temp;
 	int			i;
 
 	if (fd < 0 || line == 0 || BUFFER_SIZE <= 0)
@@ -94,11 +93,7 @@ int		get_next_line(int fd, char **line)
 	while ((size = read(fd, buf, BUFFER_SIZE)) > 0)
 	{
 		buf[size] = 0;
-		if (buffer[fd] == NULL)
-			temp = ft_strdup("");
-		else
-			temp = ft_strdup(buffer[fd]);
-		ft_strjoin(&buffer[fd], temp, buf);
+		buffer[fd] = ft_strjoin(buffer[fd], buf);
 		if ((i = find_newline(buffer[fd])) != -1)
 			return (cut_line(&buffer[fd], line, i));
 	}
